@@ -7,10 +7,10 @@
   },
   "authors": [
     {
-      "name": "Mahesh Samudra",
-      "email": "maheshsamudra@gmail.com"
+        "name": "Amine Formateur",
+        "email": "amine.devinfo@gmail.com"
     }
-  ],
+],
   "require": {
     "vlucas/phpdotenv": "^5.6"
   }
