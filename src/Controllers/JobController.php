@@ -16,8 +16,7 @@ class JobController extends Controller {
             $data = [$_POST['title'],$_POST['user_id']];
             $job = new Job();
             $job->creat($data);
-             dump($data) ;
-          
+             
         }
     }
 

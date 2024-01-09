@@ -16,10 +16,6 @@ class Router
     {
         $this->addRoute($route, $controller, $action, "GET");
     }
-    public function put($route, $controller, $action)
-    {
-        $this->addRoute($route, $controller, $action, "PUT");
-    }   
 
     public function post($route, $controller, $action)
     {
@@ -28,13 +24,18 @@ class Router
 
     public function dispatch()
     {
-        $uri = strtok(strtolower(rtrim($_SERVER['REQUEST_URI'],'/')), '?');
-        
+        $olduri = strtok($_SERVER['REQUEST_URI'], '?');
+        dump($olduri);
+        if($olduri == "/"){
+            $uri = $olduri;
+        }else{
+            $uri = rtrim(strtolower($olduri) , '/');
+        }
+       
         $method =  $_SERVER['REQUEST_METHOD'];
           
         if (array_key_exists($uri, $this->routes[$method])) {
             $controller = $this->routes[$method][$uri]['controller'];
-            dump($this->routes[$method]);
             $action = $this->routes[$method][$uri]['action'];
 
             $controller = new $controller();

@@ -22,7 +22,7 @@
     </form>
     <div id="result"></div>
     
-    <span id="msg" class="badge text-bg-success">Success</span>
+    <span id="msg" class="badge text-bg-success"></span>
 </div>
 
 <?php include '../views/layout/footer.php' ?>
