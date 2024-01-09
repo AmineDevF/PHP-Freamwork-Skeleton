@@ -13,6 +13,8 @@
     
     <span><?php echo $_ENV['APP_NAME'];?></span>
 
+  
+
     <form action="/insert" method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
