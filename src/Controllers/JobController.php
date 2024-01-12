@@ -16,8 +16,22 @@ class JobController extends Controller {
             $data = [$_POST['title'],$_POST['user_id']];
             $job = new Job();
             $job->creat($data);
-             
         }
+    }
+
+    
+
+
+
+
+    public function update($params)
+    {
+        // Access the id parameter using $params['id']
+        $id = $params['id'];
+        // dump($id);die();
+        $this->render('jobs/index');
+        // Your controller logic here
+        // ...
     }
 
 }

@@ -29,4 +29,19 @@ class User
             die("Error: " . $e->getMessage());
         }
     }
+    public function delete($id)
+    {
+        // dump($id);die();
+        try {
+            // Prepare and execute the SQL query to select all users
+          
+            $stmt = $this->db->prepare( "DELETE FROM users WHERE id =:id" );
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        } catch (\PDOException $e) {
+            // Handle the exception (log, throw, or handle gracefully)
+            die("Error: " . $e->getMessage());
+        }
+    }
 }

@@ -15,7 +15,7 @@
 
   
 
-    <form action="/insert" method="POST">
+    <form action="/insertuser/<?= $_ENV['USER_ID']?>" method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
 

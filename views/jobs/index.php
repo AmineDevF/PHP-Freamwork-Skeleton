@@ -10,6 +10,7 @@
       <th scope="col">username</th>
       <th scope="col">Email</th>
       <th scope="col">Role</th>
+      <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +21,11 @@
         <td><?=$user['username'] ?></td>
         <td><?=$user['email'] ?></td>
         <td><?=$user['role_name'] ?></td>
+        <td>
+          <form action="delete/<?=$user['id'] ?>" method="post">
+        <button type="submit">Delete user</button>
+        </form>
+          </td>
     </tr>
   
     <?php endforeach ?>

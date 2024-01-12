@@ -8,13 +8,24 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $journals = [
-            new Journal('My Third Journal Entry', '2023'),
-            new Journal('My Second Journal Entry', '2022'),
-            new Journal('My Second Journal', '2021')
-        ];
-
-        $this->render('index', ['journals' => $journals]);
+        $userModel = new User();
+        $users = $userModel->getAllUsers();
+        
+        // dump($users);
+       
+        $this->render('home',['users' => $users]);
+    }
+    public function delete($id)
+    {
+    
+        $userModel = new User();
+        $users = $userModel->delete($id['id']);
+        
+        header('Location: /user' );
+        exit;
+        
+        
+        // $this->render('home',['users' => $users]);
     }
     
     public function getAllUser()

@@ -8,8 +8,13 @@ class Router
 
     private function addRoute($route, $controller, $action, $method)
     {
+        // Convert route with parameters to a regex pattern
+        $pattern = str_replace('/{id}', '/(?<id>[^\/]+)', $route);
+        $pattern = str_replace('/', '\/', $pattern);
+        $pattern = "#^" . $pattern . "$#";
 
-        $this->routes[$method][$route] = ['controller' => $controller, 'action' => $action];
+
+        $this->routes[$method][$pattern] = ['controller' => $controller, 'action' => $action];
     }
 
     public function get($route, $controller, $action)
@@ -26,23 +31,37 @@ class Router
     {
         $olduri = strtok($_SERVER['REQUEST_URI'], '?');
         dump($olduri);
-        if($olduri == "/"){
+        if ($olduri == "/") {
             $uri = $olduri;
-        }else{
-            $uri = rtrim(strtolower($olduri) , '/');
-        }
-       
-        $method =  $_SERVER['REQUEST_METHOD'];
-          
-        if (array_key_exists($uri, $this->routes[$method])) {
-            $controller = $this->routes[$method][$uri]['controller'];
-            $action = $this->routes[$method][$uri]['action'];
-
-            $controller = new $controller();
-            $controller->$action();
-           
         } else {
-            throw new \Exception("No route found for URI: $uri");
+            $uri = rtrim(strtolower($olduri), '/');
         }
+
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        foreach ($this->routes[$method] as $pattern => $info) {
+            // Check if the current URI matches the pattern
+            if (preg_match($pattern, $uri, $matches)) {
+                $controller = $info['controller'];
+                $action = $info['action'];
+
+                // Extract parameters from the matches array
+                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+
+                $controllerInstance = new $controller();
+                
+                // Check if the controller's action method exists
+                if (method_exists($controllerInstance, $action)) {
+                    // Call the controller's action with parameters
+                    $controllerInstance->$action($params);
+                } else {
+                    throw new \Exception("Action not found: $action");
+                }
+
+                return;
+            }
+        }
+
+        throw new \Exception("No route found for URI: $uri");
     }
 }
