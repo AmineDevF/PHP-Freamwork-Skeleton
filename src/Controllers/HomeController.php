@@ -17,13 +17,17 @@ class HomeController extends Controller
     }
     public function delete($id)
     {
+       
     
         $userModel = new User();
         $users = $userModel->delete($id['id']);
-        
+       if($users == 1) {
         header('Location: /user' );
+       }else {
+        $res = "sory user ID:" . $id['id'] ."is inccorect" ;
+        echo $res;
+       }
         exit;
-        
         
         // $this->render('home',['users' => $users]);
     }
