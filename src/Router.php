@@ -9,7 +9,7 @@ class Router
     private function addRoute($route, $controller, $action, $method)
     {
         // Convert route with parameters to a regex pattern
-        $pattern = str_replace('/{id}', '/(?<id>[^\/]+)', $route);
+        $pattern = str_replace('/:id', '/(?<id>[^\/]+)', $route);
         $pattern = str_replace('/', '\/', $pattern);
         $pattern = "#^" . $pattern . "$#";
 

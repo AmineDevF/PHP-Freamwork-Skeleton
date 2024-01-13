@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use PDO;
@@ -34,11 +35,17 @@ class User
         // dump($id);die();
         try {
             // Prepare and execute the SQL query to select all users
-          
-            $stmt = $this->db->prepare( "DELETE FROM users WHERE id =:id" );
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
 
+            $stmt = $this->db->prepare("DELETE FROM users WHERE id =:id");
+            $stmt->bindParam(':id', $id);
+            // $stmt->execute();
+            if ($stmt->execute()) {
+                return $stmt->rowCount();
+            } else {
+
+
+                echo " Not able to delete record  please contact Admin: Error Message :";
+            }
         } catch (\PDOException $e) {
             // Handle the exception (log, throw, or handle gracefully)
             die("Error: " . $e->getMessage());

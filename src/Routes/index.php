@@ -10,7 +10,7 @@ $router = new Router();
 $router->get('/', HomeController::class, 'getAllUser');
 $router->get('/user', HomeController::class, 'index');
 $router->post('/insertuser/:id', JobController::class, 'update');
-$router->post('/delete/{id}', HomeController::class, 'delete');
+$router->post('/delete/:id', HomeController::class, 'delete');
 
 
 // All  jobs routing  sectionse

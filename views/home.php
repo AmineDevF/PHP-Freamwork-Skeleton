@@ -22,7 +22,7 @@
         <td><?=$user['email'] ?></td>
         <td><?=$user['role_name'] ?></td>
         <td>
-        <form action="delete/12" method="post">
+        <form action="delete/<?= $_ENV['USER_ID']?>" method="post">
         <button type="submit">Delete user</button>
         </form>
         </td>
